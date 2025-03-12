@@ -1,4 +1,4 @@
-export const BASE_URL = "https://xpense-tracker-rose.vercel.app/";
+export const BASE_URL = "http://localhost:7000";
 
 // utils/apiPaths.js
 export const API_PATHS = {
