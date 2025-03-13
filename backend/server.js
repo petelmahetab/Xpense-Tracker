@@ -19,7 +19,9 @@ app.use(express.json());
 
 // Database connection
 connectDB();
-
+app.get('/',({
+  res.status(200).json({"backend is running"});
+});
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/income", incomeRoutes);
