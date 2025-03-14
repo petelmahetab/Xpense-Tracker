@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose"); // Add for debug route
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const incomeRoutes = require("./routes/incomeRoutes");
@@ -9,21 +10,37 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 
-// Basic CORS setup
+// CORS configuration
 const corsOptions = {
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
-  credentials: true, // Allow cookies or auth headers
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Explicitly allow methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allow common headers
+  origin: process.env.CLIENT_URL || "**",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
-
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
 app.use(express.json());
 
 // Database connection
 connectDB();
 
-// Root route (fixed syntax)
+// Debug route to test MongoDB connection
+app.get("/debug-db", async (req, res) => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 10000,
+    });
+    res.status(200).json({ message: "MongoDB connection successful" });
+  } catch (err) {
+    res.status(500).json({ error: "MongoDB connection failed", details: err.message });
+  }
+});
+
+// Root route
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Backend is running" });
 });
