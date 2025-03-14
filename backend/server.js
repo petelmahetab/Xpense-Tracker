@@ -19,9 +19,12 @@ app.use(express.json());
 
 // Database connection
 connectDB();
-app.get('/',({
-  res.status(200).json({"backend is running"});
+
+// Root route (fixed syntax)
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Backend is running" });
 });
+
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/income", incomeRoutes);
@@ -34,11 +37,5 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-
+// Export the app for Vercel
 module.exports = app;
-
-
-const PORT = process.env.PORT || 5000;
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
