@@ -1,4 +1,4 @@
-export const BASE_URL = "https://xpense-tracker-v.vercel.app/";
+export const BASE_URL = "https://xpense-track-back.vercel.app/";
 
 // utils/apiPaths.js
 export const API_PATHS = {
