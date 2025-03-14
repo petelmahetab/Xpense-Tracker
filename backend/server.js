@@ -10,11 +10,14 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const app = express();
 
 // Basic CORS setup
-app.use(cors({
-  origin: process.env.CLIENT_URL || "https://xpense-tracks-with-me.vercel.app/",
-  credentials: true,
-}));
+const corsOptions = {
+  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  credentials: true, // Allow cookies or auth headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Explicitly allow methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow common headers
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Database connection
