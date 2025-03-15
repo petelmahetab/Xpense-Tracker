@@ -18,7 +18,7 @@ const connectDB = async () => {
     process.exit(1); 
   }
 };
-app.use(cors());
+app.use(cors({ origin: "https://xpense-tracks-with-me.vercel.app" })));
 connectDB();
 
 // Example route
