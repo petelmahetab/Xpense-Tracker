@@ -17,6 +17,7 @@ const connectDB = async () => {
     process.exit(1); 
   }
 };
+app.use(cors());
 connectDB();
 
 // Example route
