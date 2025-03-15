@@ -1,6 +1,6 @@
 # Expense Tracker App
 
-![Expense Tracker Demo](https://xpense-tracks-with-me.vercel.app/) 
+[Expense Tracker Demo](https://xpense-tracks-with-me.vercel.app/) 
 
 A full-stack **Expense Tracker** application built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js). This app provides users with a powerful tool to manage their finances by tracking income and expenses through an intuitive, responsive interface and a robust backend.
 
