@@ -1,48 +1,28 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose"); // Add for debug route
-const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
-const incomeRoutes = require("./routes/incomeRoutes");
-const expenseRoutes = require("./routes/expenseRoutes");
-const dashboardRoutes = require("./routes/dashboardRoutes");
+const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
-
-// CORS configuration
-const corsOptions = {
-  origin: process.env.CLIENT_URL || "**",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
 app.use(express.json());
 
-// Database connection
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB Connected');
+  } catch (err) {
+    console.error('MongoDB Error:', err);
+    process.exit(1); 
+  }
+};
 connectDB();
 
+// Example route
+app.get('/', (req, res) => res.send('Expense Tracker backend is ready for Running'));
 
-
-// Root route
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Backend is running" });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-// Routes
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/income", incomeRoutes);
-app.use("/api/v1/expense", expenseRoutes);
-app.use("/api/v1/dashboard", dashboardRoutes);
-
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error("Error:", err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
-});
-
-// Export the app for Vercel
-module.exports = app;
