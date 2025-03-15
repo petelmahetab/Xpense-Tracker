@@ -25,20 +25,7 @@ app.use(express.json());
 // Database connection
 connectDB();
 
-// Debug route to test MongoDB connection
-app.get("/debug-db", async (req, res) => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000,
-      connectTimeoutMS: 10000,
-    });
-    res.status(200).json({ message: "MongoDB connection successful" });
-  } catch (err) {
-    res.status(500).json({ error: "MongoDB connection failed", details: err.message });
-  }
-});
+
 
 // Root route
 app.get("/", (req, res) => {
