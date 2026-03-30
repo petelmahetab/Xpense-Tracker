@@ -95,15 +95,6 @@ Screenshots
 
 
 
-
-
-
-### Notes
-- **Customization**: Replace placeholders like `your-username`, `<username>`, `<password>`, `<dbname>`, and `<your-secret-key>` with your actual values.
-- **Screenshots**: I included placeholder image links. Replace them with real screenshots of your app (upload to GitHub or an image host like Imgur).
-- **Structure**: Assumes a separate `backend` and `frontend` folder. Adjust if your repo is different.
-- **Enhancements**: Added tables, code blocks, and sections for a polished look.
-
 ### How to Add to Your Repo
 1. Create or edit `README.md` in your GitHub repo’s root.
 2. Copy-paste the above content.
